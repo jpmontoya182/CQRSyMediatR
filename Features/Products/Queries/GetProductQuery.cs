@@ -1,8 +1,6 @@
 using MediatR;
-using CQRSyMediatR.Infrastruture.Persistence;
-
+using CQRSyMediatR.Infrastructure.Persistence;
 namespace CQRSyMediatR.Features.Products.Queries;
-
 public class GetProductQuery : IRequest<GetProductQueryResponse>
 {
     public int ProductId { get; set; }
@@ -23,7 +21,7 @@ public class GetProductQueryHandler : IRequestHandler<GetProductQuery, GetProduc
         var product = await _context.Products.FindAsync(request.ProductId);
 
         return new GetProductQueryResponse
-        {
+        {            
             Description = product.Description,
             ProductId = product.ProductId,
             Price = product.Price
@@ -31,6 +29,7 @@ public class GetProductQueryHandler : IRequestHandler<GetProductQuery, GetProduc
     }
 }
 
+// response class
 public class GetProductQueryResponse
 {
     public int ProductId { get; set; }
