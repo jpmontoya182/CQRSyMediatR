@@ -3,3 +3,7 @@ https://dev.to/isaacojeda/parte-2-cqrs-y-mediatr-validando-con-fluentvalidation-
 
 *
 https://localhost:7298/swagger/index.html
+
+** 
+leer 
+https://docs.microsoft.com/en-us/dotnet/architecture/microservices/
