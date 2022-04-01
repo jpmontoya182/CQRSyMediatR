@@ -1,5 +1,8 @@
 using MediatR;
 using CQRSyMediatR.Infrastructure.Persistence;
+using CQRSyMediatR.Exceptions;
+using CQRSyMediatR.Domain;
+
 namespace CQRSyMediatR.Features.Products.Queries;
 public class GetProductQuery : IRequest<GetProductQueryResponse>
 {
@@ -20,8 +23,14 @@ public class GetProductQueryHandler : IRequestHandler<GetProductQuery, GetProduc
     {
         var product = await _context.Products.FindAsync(request.ProductId);
 
+        if (product is null)
+        {
+            throw new NotFoundException();
+            // throw new NotFoundException(nameof(Product), request.ProductId);
+        }
+
         return new GetProductQueryResponse
-        {            
+        {
             Description = product.Description,
             ProductId = product.ProductId,
             Price = product.Price

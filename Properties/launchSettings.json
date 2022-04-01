@@ -6,7 +6,8 @@
     "iisExpress": {
       "applicationUrl": "http://localhost:36290",
       "sslPort": 44315
-    }
+    },
+    "launchUrl": "swagger"
   },
   "profiles": {
     "CQRSyMediatR": {

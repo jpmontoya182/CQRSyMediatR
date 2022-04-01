@@ -1,1 +1,5 @@
 https://dev.to/isaacojeda/parte-1-cqrs-y-mediatr-implementando-cqrs-en-aspnet-56oe
+https://dev.to/isaacojeda/parte-2-cqrs-y-mediatr-validando-con-fluentvalidation-14i0
+
+*
+https://localhost:7298/swagger/index.html
