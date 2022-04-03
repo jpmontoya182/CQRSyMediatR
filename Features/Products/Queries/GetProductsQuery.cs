@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using AutoMapper;
 using CQRSyMediatR.Domain;
 using AutoMapper.QueryableExtensions;
+using CQRSyMediatR.Helpers;
 
 namespace CQRSyMediatR.Features.Products.Queries;
 public class GetProductsQuery : IRequest<List<GetProductsQueryResponse>>
@@ -22,10 +23,10 @@ public class GetProductsQueryHandler : IRequestHandler<GetProductsQuery, List<Ge
     }
     // we use asnotracking because is a just query, and we don't modify the state of entity
     public Task<List<GetProductsQueryResponse>> Handle(GetProductsQuery request, CancellationToken cancellationToken) =>
-        _context.Products
-            .AsNoTracking()
-            .ProjectTo<GetProductsQueryResponse>(_mapper.ConfigurationProvider)
-            .ToListAsync();
+         _context.Products
+             .AsNoTracking()
+             .ProjectTo<GetProductsQueryResponse>(_mapper.ConfigurationProvider)
+             .ToListAsync();
 
 }
 
@@ -33,18 +34,22 @@ public class GetProductsQueryHandler : IRequestHandler<GetProductsQuery, List<Ge
 // respose class 
 public class GetProductsQueryResponse
 {
-    public int ProductId { get; set; }
+    public string? ProductId { get; set; }
     public string Description { get; set; } = default!;
     public double Price { get; set; }
+    public object ListDescription { get; set; } = default!;
 }
 
 // Mapping
 public class GetProductsQueryProfile : Profile
 {
     public GetProductsQueryProfile() =>
-        CreateMap<Product, GetProductQueryResponse>();
-    // CreateMap<Product, GetProductsQueryResponse>()
-    //             .ForMember(dest =>
-    //             dest.ListDescription,
-    //             opt => opt.MapFrom(mf => $"{mf.Description} - {mf.Price:c}"));
+    // CreateMap<Product, GetProductQueryResponse>();
+       CreateMap<Product, GetProductsQueryResponse>()
+            .ForMember(dest =>
+                dest.ListDescription,
+                opt => opt.MapFrom(mf => $"{mf.Description} - {mf.Price:c}"))
+            .ForMember(dest =>
+                dest.ProductId,
+                opt => opt.MapFrom(mf => mf.ProductId.ToHashId()));
 }

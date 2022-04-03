@@ -7,3 +7,7 @@ https://localhost:7298/swagger/index.html
 ** 
 leer 
 https://docs.microsoft.com/en-us/dotnet/architecture/microservices/
+
+
+dotnet add package hashids.net
+dotnet add package AutoMapper.Extensions.Microsoft.DependencyInjection
