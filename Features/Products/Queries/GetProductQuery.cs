@@ -25,8 +25,7 @@ public class GetProductQueryHandler : IRequestHandler<GetProductQuery, GetProduc
 
         if (product is null)
         {
-            throw new NotFoundException();
-            // throw new NotFoundException(nameof(Product), request.ProductId);
+            throw new NotFoundException(nameof(Product), request.ProductId);
         }
 
         return new GetProductQueryResponse
