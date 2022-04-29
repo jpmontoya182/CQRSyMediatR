@@ -2,9 +2,11 @@ using MediatR;
 using CQRSyMediatR.Features.Products.Commands;
 using CQRSyMediatR.Features.Products.Queries;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CQRSyMediatR.Controllers;
 
+[Authorize]
 [ApiController]
 [Route("api/products")]
 public class ProductsController : ControllerBase
@@ -22,6 +24,7 @@ public class ProductsController : ControllerBase
 
     // create a new product
     [HttpPost]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> CreateProduct([FromBody] CreateProductCommand command)
     {
         await _mediator.Send(command);
